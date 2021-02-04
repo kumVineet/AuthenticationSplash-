@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
 
-const SplashScreen = () => {
+const SplashScreen = ({ navigation }) => {
     // const { colors } = useTheme();
 
     return (
@@ -13,7 +12,7 @@ const SplashScreen = () => {
             <View style={styles.header}>
                 <Animatable.Image
                     animation="bounceIn"
-                    duration='1500'
+                    duration={1500}
                     source={require("./img/logo.png")}
                     style={styles.logo}
                     resizeMode='stretch'
@@ -24,20 +23,18 @@ const SplashScreen = () => {
 
                 <Text style={styles.title}
                 >Hey!! Welcome</Text>
-                <Text style={styles.title}
+
+                <Text style={styles.text}
                 >Sign In with Account</Text>
 
                 <View style={styles.button} >
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => navigation.navigate("SignInScreen")}>
                         <LinearGradient
                             colors={['#08d4c4', '#01ab9d']}
                             style={styles.signIn}
                         >
                             <Text style={styles.textSign}> Get Started</Text>
-                            <MaterialIcons
-                                name="navigate-next"
-                                color="#fff" size={20}
-                            />
+
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
@@ -70,6 +67,18 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold'
     },
+    footer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        paddingVertical: 50,
+        paddingHorizontal: 30
+    },
+    text: {
+        color: 'grey',
+        marginTop: 5
+    },
     button: {
         alignItems: 'flex-end',
         marginTop: 30
@@ -86,4 +95,4 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold'
     }
-})
+});

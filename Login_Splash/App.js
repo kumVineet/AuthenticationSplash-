@@ -9,22 +9,23 @@
 import React from 'react';
 import {
   SafeAreaView,
-  View,
-  ActivityIndicator
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+
 import RootScreen from './screens/RootScreen';
-import SplashScreen from './screens/SplashScreen'
 
 
 
-const App = () => {
+export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <SplashScreen />
+      <NavigationContainer>
+        <RootScreen />
+      </NavigationContainer>
     </SafeAreaView>
   )
 }
 
 
 
-export default App;
+

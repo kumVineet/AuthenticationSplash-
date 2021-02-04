@@ -1,17 +1,21 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import SplashScreen from './SplashScreen';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
 
-const RootScreen = ()=> {
+
+const RootStack = createStackNavigator();
+
+const RootScreen = ({ navigation }) => {
     return (
-        <SafeAreaView>
-        <SplashScreen/>
-        {/* <SignInScreen/>
-        <SignUpScreen/> */}
-        </SafeAreaView>
+        <RootStack.Navigator headerMode='none'>
+            <RootStack.Screen name="SplashScreen" component={SplashScreen} />
+            <RootStack.Screen name="SignInScreen" component={SignInScreen} />
+            <RootStack.Screen name="SignUpScreen" component={SignUpScreen} />
+
+        </RootStack.Navigator>
     );
 }
 
