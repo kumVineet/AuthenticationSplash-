@@ -1,24 +1,74 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Platform, TextInput, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Platform, TextInput, StatusBar } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 
+import { AuthContext } from '../components/context';
+// import Users from '../model/Users';
+
 
 const SignInScreen = ({ navigation }) => {
+
+    const [data, setData] = React.useState({
+        userName: '',
+        password: '',
+        check_textInput: false,
+        secureTextEntry: true,
+
+    });
+
+    const { signIn } = React.useContext(AuthContext);
+
+    const textInputChange = (val) => {
+        if (val.length !== 0) {
+            setData({
+                ...data,
+                userName: val,
+                check_textInput: true
+            });
+        } else {
+            setData({
+                ...data,
+                userName: val,
+                check_textInput: false
+            });
+        }
+    }
+
+    const passwordChange = (val) => {
+        setData({
+            ...data,
+            password: val,
+        });
+    }
+
+    const updateSecuretextEntry = () => {
+        setData({
+            ...data,
+            secureTextEntry: !data.secureTextEntry
+        })
+    }
+
+
+    const logIn = (userName, password) => {
+
+        signIn(userName, password);
+    }
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#009487' barStyle='light-content' />
             <View style={styles.header}>
-                <Text style={styles.text_header}>Hello !!</Text>
+                <Text style={styles.text_header}>Good to see you again !!</Text>
             </View>
             <Animatable.View
                 animation='fadeInUpBig'
                 style={styles.footer}
             >
                 <View style={styles.footer}>
-                    <Text style={styles.text_footer}> Email</Text>
+                    <Text style={styles.text_footer}> Username</Text>
                     <View style={styles.action}>
                         <FontAwesome
                             name="user-o"
@@ -26,16 +76,19 @@ const SignInScreen = ({ navigation }) => {
                             size={20}
                         />
                         <TextInput
-                            placeholder="Usename"
+                            placeholder="Email/User_id"
                             style={styles.textInput}
                             autoCapitalize='none'
+                            onChangeText={(val) => textInputChange(val)}
                         />
 
-                        <Feather
-                            name="check-circle"
-                            color="green"
-                            size={20}
-                        />
+                        {data.check_textInput ?
+                            <Feather
+                                name="check-circle"
+                                color="green"
+                                size={20}
+                            />
+                            : null}
                     </View>
 
                     <Text style={[styles.text_footer, { marginTop: 35 }]}> Password</Text>
@@ -47,15 +100,26 @@ const SignInScreen = ({ navigation }) => {
                         />
                         <TextInput
                             placeholder="Password"
+                            secureTextEntry={data.secureTextEntry ? true : false}
                             style={styles.textInput}
                             autoCapitalize='none'
-                            secureTextEntry={true}
+                            onChangeText={(val) => passwordChange(val)}
                         />
-                        <Feather
-                            name="eye-off"
-                            color="grey"
-                            size={20}
-                        />
+                        <TouchableOpacity onPress={updateSecuretextEntry}>
+                            {data.secureTextEntry ?
+                                <Feather
+                                    name="eye-off"
+                                    color="grey"
+                                    size={20}
+                                />
+                                :
+                                <Feather
+                                    name="eye"
+                                    color="grey"
+                                    size={20}
+                                />
+                            }
+                        </TouchableOpacity>
                     </View>
 
                     <TouchableOpacity>
@@ -63,7 +127,7 @@ const SignInScreen = ({ navigation }) => {
                     </TouchableOpacity>
 
                     <View style={styles.button}>
-                        <TouchableOpacity onPress={() => navigation.navigate("SplashScreen")}
+                        <TouchableOpacity onPress={() => { logIn(data.userName, data.password) }}
                             style={styles.signIn}>
                             <LinearGradient
                                 colors={['#08d4c4', '#01ab9d']}
@@ -73,16 +137,14 @@ const SignInScreen = ({ navigation }) => {
                             </LinearGradient>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={[styles.signIn, {
-                            borderColor: '#009487',
-                            borderWidth: 1,
-                            marginTop: 15
-                        }]}>
+                        <TouchableOpacity onPress={() => navigation.navigate("SignUpScreen")}
+                            style={[styles.signIn, {
+                                borderColor: '#009487',
+                                borderWidth: 1,
+                                marginTop: 15
+                            }]}>
                             <Text
-                                onPress={() => navigation.navigate("SignUpScreen")}
-                                style={[styles.textSign, {
-                                    color: '#009487'
-                                }]}>Sign Up</Text>
+                                style={[styles.textSign, { color: '#009487' }]}>Sign Up</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

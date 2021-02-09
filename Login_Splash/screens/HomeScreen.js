@@ -2,9 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
+import { AuthContext } from '../components/context';
 
-const SplashScreen = ({ navigation }) => {
-    // const { colors } = useTheme();
+
+const HomeScreen = ({ navigation }) => {
+
+    const { signOut } = React.useContext(AuthContext)
 
     return (
         <View style={styles.container}>
@@ -22,18 +25,29 @@ const SplashScreen = ({ navigation }) => {
                 animation="fadeInUpBig">
 
                 <Text style={styles.title}
-                >Hey!! Guest..</Text>
+                >LET US DELIGHT YOU</Text>
 
                 <Text style={styles.text}
-                >Sign In with Account</Text>
+                >Delicious, handcrafted beverages and great-tasting food. The secret to making life better.</Text>
 
                 <View style={styles.button} >
-                    <TouchableOpacity onPress={() => navigation.navigate("SignInScreen")}>
+                    <TouchableOpacity onPress={() => navigation.navigate("SplashScreen")}>
                         <LinearGradient
                             colors={['#08d4c4', '#01ab9d']}
                             style={styles.signIn}
                         >
-                            <Text style={styles.textSign}> Get Started</Text>
+                            <Text style={styles.textSign}> Order Now!</Text>
+
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.button} >
+                    <TouchableOpacity onPress={() => { signOut() }} >
+                        <LinearGradient
+                            colors={['#08d4c4', '#01ab9d']}
+                            style={styles.signIn}
+                        >
+                            <Text style={styles.textSign}> Sign Out</Text>
 
                         </LinearGradient>
                     </TouchableOpacity>
@@ -43,7 +57,7 @@ const SplashScreen = ({ navigation }) => {
     );
 }
 
-export default SplashScreen;
+export default HomeScreen;
 
 const { height } = Dimensions.get("screen")
 const height_logo = height * 0.2;
@@ -77,7 +91,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'grey',
-        marginTop: 5
+        marginTop: 5,
+        // fontStyle: 'Comic Sans MS'
     },
     button: {
         alignItems: 'flex-end',

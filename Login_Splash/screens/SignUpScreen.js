@@ -7,6 +7,8 @@ import * as Animatable from 'react-native-animatable';
 
 
 const SignUpScreen = ({ navigation }) => {
+
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#009487' barStyle='light-content' />
@@ -38,7 +40,7 @@ const SignUpScreen = ({ navigation }) => {
                         />
                     </View>
 
-                    <Text style={[styles.text_footer, { marginTop: 35 }]}> Date of Birth</Text>
+                    <Text style={[styles.text_footer, { marginTop: 28 }]}> Date of Birth</Text>
                     <View style={styles.action}>
                         <Feather
                             name="calendar"
@@ -49,7 +51,6 @@ const SignUpScreen = ({ navigation }) => {
                             placeholder="dd-mm-yyyy"
                             style={styles.textInput}
                             autoCapitalize='none'
-                            secureTextEntry={true}
                         />
                         <Feather
                             name="check-circle"
@@ -58,7 +59,7 @@ const SignUpScreen = ({ navigation }) => {
                         />
                     </View>
 
-                    <Text style={[styles.text_footer, { marginTop: 35 }]}> Password</Text>
+                    <Text style={[styles.text_footer, { marginTop: 28 }]}> Password</Text>
                     <View style={styles.action}>
                         <Feather
                             name="lock"
@@ -78,7 +79,7 @@ const SignUpScreen = ({ navigation }) => {
                         />
                     </View>
 
-                    <Text style={[styles.text_footer, { marginTop: 35 }]}> Confirm Password</Text>
+                    <Text style={[styles.text_footer, { marginTop: 28 }]}> Confirm Password</Text>
                     <View style={styles.action}>
                         <Feather
                             name="lock"
@@ -98,7 +99,7 @@ const SignUpScreen = ({ navigation }) => {
                         />
                     </View>
 
-                    <Text style={[styles.text_footer, { marginTop: 35 }]}> Mobile Number</Text>
+                    <Text style={[styles.text_footer, { marginTop: 28 }]}> Mobile Number</Text>
                     <View style={styles.action}>
                         <Feather
                             name="phone"
@@ -109,7 +110,7 @@ const SignUpScreen = ({ navigation }) => {
                             placeholder="+91"
                             style={styles.textInput}
                             autoCapitalize='none'
-                            secureTextEntry={true}
+                            keyboardType="number-pad"
                         />
                         <Feather
                             name="check-circle"
@@ -118,13 +119,25 @@ const SignUpScreen = ({ navigation }) => {
                         />
                     </View>
 
+                    <View style={styles.textPrivacy}>
+                        <Text style={styles.color_textPrivacy}>
+                            By signing up you agree to our
+                        </Text>
+                        <Text style={[styles.color_textPrivacy, { fontWeight: 'bold' }]}> {" "}Terms of service</Text>
+                        <Text style={styles.color_textPrivacy}>and</Text>
+                        <Text style={[styles.color_textPrivacy, { fontWeight: 'bold' }]}> {" "}Privacy policy</Text>
+                    </View>
+
                     <View style={styles.button}>
-                        <LinearGradient
-                            colors={['#08d4c4', '#01ab9d']}
-                            style={styles.signIn}
-                        >
-                            <Text style={[styles.textSign, { color: '#fff' }]}>Sign Up</Text>
-                        </LinearGradient>
+                        <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}
+                            style={styles.signIn}>
+                            <LinearGradient
+                                colors={['#08d4c4', '#01ab9d']}
+                                style={styles.signIn}
+                            >
+                                <Text style={[styles.textSign, { color: '#fff' }]}>Sign Up</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
 
                         <TouchableOpacity
                             onPress={() => navigation.goBack()}
@@ -155,7 +168,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         paddingHorizontal: 20,
-        paddingBottom: 50
+        paddingBottom: 40
     },
     footer: {
         flex: 6,
@@ -200,7 +213,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        marginTop: 50
+        marginTop: 30
     },
     signIn: {
         width: '100%',
@@ -212,5 +225,13 @@ const styles = StyleSheet.create({
     textSign: {
         fontSize: 18,
         fontWeight: 'bold'
-    }
+    },
+    textPrivacy: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 10
+    },
+    color_textPrivacy: {
+        color: 'grey'
+    },
 });
