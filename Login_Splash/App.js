@@ -79,13 +79,6 @@ export default function App() {
       if (userName == 'user' && password == 'pass') {
         userToken = 'dfgdfg';
         await AsyncStorage.setItem('userToken', userToken);
-        // try {
-        //   userToken = 'dfgdfg';
-        //   await AsyncStorage.setItem('userToken', userToken);
-
-        // } catch (error) {
-        //   console.log(error);
-        // }
       } else {
         Alert.alert("Login not successfull")
       }
